@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lekton:ital,wght@0,400;0,700;1,400&family=Manrope:wght@200..800&family=Noto+Sans+Mono:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&
+    family=Saira:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Rock Paper Scissors</h1>
+  <div class="game-panel">  
+  <h1>Rock Paper Scissors</h1>
+
+  <div class="choices">
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <button id="reset">Reset Game</button>
+  </div>
+
+   <div class="pics">
+    <img id="playerImg" src="./Pictures/paper.jpg" alt="Player Choice">
+    <img id="computerImg" src="./Pictures/paper.jpg" alt="Computer Choice">
+  </div>
+
+  <div class="message-box">
+    <p id="results"></p>
+    <p id="score">Human: 0 | Computer: 0</p>
+    </div>
+  </div>
 
     <script src="main.js"></script>
 

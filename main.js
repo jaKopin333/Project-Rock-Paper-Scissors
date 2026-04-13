@@ -22,42 +22,99 @@
     let humanScore = 0;
     let computerScore = 0;
 
+    //Images
+    const playerImg = document.getElementById("playerImg");
+    const computerImg = document.getElementById("computerImg");
+
+
 //  Play a single round
     function playRound(humanchoice, computerchoice) {
-        humanchoice = humanchoice.toLowerCase();
+        let resultMessage;
+
+        if (humanScore >= 5 || computerScore >= 5){
+            return;
+        }
 
         if (humanchoice === computerchoice) {
-            console.log("It's a Tie!");
+            resultMessage = "It's a tie!";
         } else if (humanchoice === "rock" && computerchoice === "scissors") {
             humanScore++;
-            console.log("You win! Rock destorys scissors.");
+            resultMessage = "You win! Rock destorys scissors.";
         } else if (humanchoice === "paper" && computerchoice === "rock") {
             humanScore++;
-            console.log("You win! Paper covers rock.");
+            resultMessage = "You win! Paper covers rock.";
         } else if (humanchoice === "scissors" && computerchoice === "paper") {
             humanScore++;
-            console.log("You win! Scissors cuts paper.")
+            resultMessage = ("You win! Scissors cuts paper.")
         } else {
             computerScore++;
-            console.log("You lose!");
+            resultMessage = ("You lose!");
         }
-    } 
-    
-// playGame 5 rounds keep track of score and declare a winner at the end
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
+        
+        document.getElementById("results").innerHTML = resultMessage; //this should display
+        document.getElementById("score").innerHTML = 
+        `You: ${humanScore} | Computer: ${computerScore}`; // Display Score
 
-        playRound(humanSelection, computerSelection);
+        animateChoice(playerImg, humanchoice);
+        animateChoice(computerImg, computerchoice);
+
+
+        // Check for game winner
+        if (humanScore === 5) {
+            document.getElementById("results").innerHTML = "Hell yeah you won!"
+        } else if (computerScore === 5) {
+            document.getElementById("results").innerHTML = "Dang you lose!"
+        }
     }
 
 
-// Print winner
-console.log("Final Scores:");
-console.log("Human:", humanScore);
-console.log("Computer:", computerScore);
+    const resetbtn = document.getElementById("reset");
+        resetbtn.addEventListener("click", resetGame);
 
+        function resetGame(){
+            humanScore = 0;
+            computerScore = 0;
+
+            document.getElementById("results").innerHTML = "";
+            document.getElementById("score").innerHTML = "You: 0 | Computer: 0";
+        }
+
+     const rockbtn = document.getElementById("rock");
+        rockbtn.addEventListener("click", () => {
+            playRound("rock", getComputerChoice());
+        });
+        
+        const paperbtn = document.getElementById("paper");
+        paperbtn.addEventListener("click", () => {
+            playRound("paper", getComputerChoice());
+        });
+
+        const scissorbtn = document.getElementById("scissors");
+        scissorbtn.addEventListener("click", () => {
+            playRound("scissors", getComputerChoice());
+        });
+        
+
+
+// UI/UX stuff
+function animateChoice(imgElement, finalChoice) {
+    const imageMap = {
+        rock: "./Pictures/rock.jpg",
+        paper: "./Pictures/paper.jpg",
+        scissors: "./Pictures/scissors.jpg",
+    };
+
+    const choices = ["rock", "paper", "scissors"];
+    let i = 0;
+
+
+const interval = setInterval(() => {
+    imgElement.src = imageMap[choices[i]];
+    i = (i + 1) % choices.length;
+}, 400);
+
+setTimeout(() => {
+    clearInterval(interval);
+    imgElement.src = imageMap[finalChoice];
+}, 700);
 }
-
-playGame();
